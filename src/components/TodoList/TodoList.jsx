@@ -4,40 +4,21 @@ import { useContext } from 'react';
 import TodoContext from '../../context/TodoContext';
 const TodoList = () => {
 
-  const {todos,setTodos,addTodos}=useContext(TodoContext);
+  const {todos,dispatch,addTodos}=useContext(TodoContext);
 
   function onDeleteTodo(id)
   {
-    const newList=todos.filter(todo=>(todo.id!=id))
-    setTodos(newList)
+    dispatch({type:'delete_todo',payload:{id}})
   }
-  function onEditTodo(id,newTodo)
-  {
-    const newTodoList=todos.map(todo=>{
-      if(todo.id==id)
-      {
-        todo.text=newTodo
-      }
-      return todo;
-      
-    })
-    setTodos(newTodoList)
-   
-  }
-
-  function onFinishedTodo(id,state)
-  {
-    const newTodoList=todos.map(todo=>{
-      if(todo.id==id)
-      {
-        todo.isFinished=state
-      }
-      
-      return todo;
-    })
-    setTodos(newTodoList)
-
-  }
+ 
+   function onEditTodo(id,newTodo)
+   {
+    dispatch({type:'edit_todo',payload:{id,newTodo}})
+   }
+   function onFinishedTodo(id,state)
+   {
+    dispatch({type:'finish_todo',payload:{id,state}})
+   }
   return (
    <>
    {todos && todos.map((todo)=><Todo
