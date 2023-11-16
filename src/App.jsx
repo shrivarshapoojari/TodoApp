@@ -1,33 +1,25 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+ 
 import './App.css'
+import TodoList from './components/TodoList/TodoList'
+import AddTodo from './components/AddTodo/AddTodo'
 
 function App() {
-  const [count, setCount] = useState(0)
+   const [todos,setTodos]=useState([
+    {id:1,text:"Sleep",isFinished:true}
+  ])
+
+  const addTodos=(todotext)=>
+  {
+    var nextId=todotext.length+1;
+    setTodos([...todos, {id:nextId,isFinished:false,text:todotext}])
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      
+      <TodoList todos={todos} setTodos={setTodos}/>
+      <AddTodo addTodos={addTodos}/>
     </>
   )
 }
