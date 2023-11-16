@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import TodoContext from '../../context/TodoContext';
 
-const AddTodo = ({addTodos}) => {
+const AddTodo = () => {
+  const {todos,setTodos,addTodos}=useContext(TodoContext);
 
 const [todoText,setTodoText]=useState(" ");
 
